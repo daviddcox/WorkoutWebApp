@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, ForeignKey, Boolean, Index
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from sqlalchemy.orm import declarative_base
@@ -26,6 +26,10 @@ class WorkoutGroups(Base):
     scheduled_time = Column(String, nullable=False)
     duration = Column(Integer, nullable=False)
     created_at = Column(DateTime, default=datetime.now)
+
+    __table_args__ = (
+        Index('idx_location', 'location'),
+    )
 
 class WorkoutGroupMembers(Base):
     __tablename__ = 'workout_group_members'
